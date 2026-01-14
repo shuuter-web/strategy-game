@@ -1,6 +1,15 @@
 /* =========================
    基本設定
 ========================= */
+
+// ===== Build / Version =====
+const BUILD_INFO = 'pages-split-2026-01-14-r1';
+// (Pages反映確認用) 起動時にログへ出します
+function logBuildInfo(){
+  try { logSkill(`【BUILD】${BUILD_INFO}`); } catch(e) { /* ignore */ }
+  try { console.log('[BUILD]', BUILD_INFO); } catch(e) { /* ignore */ }
+}
+
 const CONFIG = { rows: 9, cols: 11, cellW: 34, cellH: 40 }; // ★cols=11
 const FLASH_LIMIT_MS = 3000;
 const LOG_MODE = 'skills';
@@ -736,6 +745,8 @@ function onWin() {
   setENG(0); // ENG reset per stage
 
   battleCount++;
+  // 次の戦闘に向けて敵の新ユニット種類を1つ解禁
+  applyEnemyAddUnitUpgrade('敵強化');
   setTimeout(() => startStageFlow(true), 0);
 }
 function onLose() {
@@ -2317,7 +2328,7 @@ function sumEnemyWeights() {
 }
 function normalizeEnemyWeightsTo10(excludeId=null) {
   let sum = sumEnemyWeights();
-  if (sum <= 20) return;
+  if (sum <= 10) return;
 
   for (const id of enemyWeightOrder) {
     if (sum <= 10) break;
@@ -3549,6 +3560,7 @@ function hardResetAll() {
    初期化
 ========================= */
 function init() {
+  logBuildInfo();
   initSideParamsToDefaults();
   buildBoard();
 

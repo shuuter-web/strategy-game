@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>覚えゲー・列占拠（ステージ＆三択強化＆ボス戦）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <h1>覚えゲー・列占拠（ステージ＆三択強化＆ボス戦）</h1>
+  <p style="font-size:13px; margin: 6px 0 10px;">
+    <b>スキル/攻撃 → 演出(暗転) → マップのどこかをタップで移動</b><br>
+    勝利：<b>敵全滅</b>（ボス戦は<b>ボス撃破</b>）／敗北：<b>敵が一列でも最奥(最下段)に到達</b>（突破）<br>
+    貨幣：初期<b>1000</b>。通常ステージクリアで<b>+300</b>／ボス戦クリアで<b>+500</b>。強化は費用制で、所持金が許す限り複数購入・リセットが可能。<br>
+    <b>3戦ごとにボス戦</b>：2×2占有の大ユニット（通常枠とは別）。ボス撃破で勝利。<b>報酬：貨幣+500</b>。<br>
+    ★敵側強化：<b>ユニット追加のみ</b>／追加のたびに<b>総重みが常に10</b>になるよう<b>古いユニットから順に減衰</b>。<br>
+    ★敵側ユニット追加：<b>7戦目以降はグレード3のみ追加</b>（同時にグレード2以下は追加されなくなる）。<br>
+    ★強化候補から <b>兵/卒</b> は除外（敵味方とも）。スキルCT減少は<b>最低1まで</b>（0にしない）。<br>
+    ★味方側：<b>生成頻度+1</b>は「新規追加（0→1）」だけでなく<b>既存ユニット（1以上）にも当たる</b>。<br>
+    ★ステージ1の最初の強化は、<b>重み増分だけ固定で+3</b>。
+  </p>
+
+  <div id="controls">
+    <span class="pill">
+      縦(ROWS):
+      <input id="rowsInput" type="number" min="4" max="30" step="1" value="9">
+      横(COLS):
+      <input id="colsInput" type="number" min="4" max="30" step="1" value="11">
+      <button id="applySizeBtn">サイズ適用</button>
+    </span>
+
+    <button id="resetBtn">リセット（強化も初期化）</button>
+    <button id="passBtn">パス（スキルなしで進行）</button>
+    <button id="autoBtn">オート:OFF</button>
+    <span id="status"></span>
+  </div>
+
+  <div id="boardWrapper">
+    <div id="board"></div>
+    <canvas id="fx"></canvas>
+    <div id="overlay"></div>
+  </div>
+
+  <div id="msgWin"></div>
+  <div id="energyHud"></div>
+  <div id="log"></div>
+
+  <div id="modalBackdrop">
+    <div id="modal">
+      <h2 id="modalTitle">ステージ開始前の強化（3択）</h2>
+      <div id="choices"></div>
+      <div class="smallNote">
+        現在の生成重み（味方/敵）はログに出ます。<br>
+        エフェクト線は<b>攻撃元→攻撃先へ飛んでいくアニメ</b>の後、<b>線として残ります</b>（次のタップまで）。
+      </div>
+    </div>
+  </div>
+
+<script src="./js/main.js"></script>
+</body>
+</html>

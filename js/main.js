@@ -3,7 +3,7 @@
 ========================= */
 
 // ===== Build / Version =====
-const BUILD_INFO = 'pages-split-2026-01-14-r1';
+const BUILD_INFO = 'pages-split-2026-01-14-r2';
 // (Pages反映確認用) 起動時にログへ出します
 function logBuildInfo(){
   try { logSkill(`【BUILD】${BUILD_INFO}`); } catch(e) { /* ignore */ }
@@ -3531,6 +3531,7 @@ function updateStatus() {
 ========================= */
 function hardResetAll() {
   logEl.textContent = '';
+  logBuildInfo();
   stage = 1;
   battleCount = 1;
   rewardPicks = 1;
@@ -3560,7 +3561,7 @@ function hardResetAll() {
    初期化
 ========================= */
 function init() {
-  logBuildInfo();
+  // logBuildInfo() is emitted inside hardResetAll so it remains visible after log clear.
   initSideParamsToDefaults();
   buildBoard();
 
